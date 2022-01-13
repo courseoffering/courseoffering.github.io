@@ -1,6 +1,9 @@
 <template>
   <div>
-    {{ selectedClasses }}
+    <pre>
+    {{ selectedClasses.map((c) => ({ name: c.name, crn: c.crn })) }}
+    <!-- {{ selectedClasses }} -->
+    </pre>
     <!-- <ClassesCalendar /> -->
     <!-- <ClassesSelectedStats /> -->
     <ClassesFilters
@@ -106,7 +109,19 @@ export default {
       console.log(e)
       if (this.selectedClasses.find((c) => c.crn == e.crn)) {
         this.snackbarActive = !this.snackbarActive
-        this.snackbarText = `Already added ${e.name}`
+        this.snackbarText = `Removing ${e.name}`
+        this.selectedClasses = this.selectedClasses.filter(
+          (c) => c.code != e.code
+        )
+        //
+      } else if (this.selectedClasses.find((c) => c.code == e.code)) {
+        this.snackbarActive = !this.snackbarActive
+        this.snackbarText = `Removing Other Section`
+        this.selectedClasses = this.selectedClasses.filter(
+          (c) => c.code != e.code
+        )
+        this.selectedClasses.push(e)
+        //
       } else {
         this.selectedClasses.push(e)
       }
