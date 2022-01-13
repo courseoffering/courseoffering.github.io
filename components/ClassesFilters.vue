@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center" align="center">
-    <v-col cols="12" sm="12" md="10" lg="8">
+    <v-col cols="12" sm="12" md="12" lg="8">
       <v-card :loading="loading">
         <v-card-title> Filters </v-card-title>
         <v-card-actions>
