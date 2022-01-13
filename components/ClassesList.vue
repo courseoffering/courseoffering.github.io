@@ -31,22 +31,28 @@
           </template>
 
           <template v-slot:item.button="{ item }">
-            <v-tooltip top :color="item.buttonOptions.color">
+            <v-tooltip right :color="item.buttonOptions.color">
               <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  elevation="2"
-                  :color="item.buttonOptions.color"
-                  :disabled="item.buttonOptions.disabled"
-                  v-bind="attrs"
-                  v-on="on"
-                  fab
-                  small
-                  @click="$emit('class:action', item)"
-                >
-                  <v-icon> mdi-plus </v-icon>
-                </v-btn>
+                <div v-bind="attrs" v-on="on">
+                  <v-btn
+                    elevation="2"
+                    :color="item.buttonOptions.color"
+                    :disabled="item.buttonOptions.disabled"
+                    fab
+                    small
+                    @click="$emit('class:action', item)"
+                  >
+                    <v-icon> {{ item.buttonOptions.icon }} </v-icon>
+                  </v-btn>
+                </div>
               </template>
-              <div v-for="tooltip in item.buttonOptions.tooltips">
+              <div v-if="item.buttonOptions.tooltips == 0">
+                {{ 'Add' }}
+              </div>
+              <div
+                v-for="tooltip in item.buttonOptions.tooltips"
+                align="center"
+              >
                 {{ tooltip }}
               </div>
             </v-tooltip>

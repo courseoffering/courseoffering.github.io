@@ -24,7 +24,7 @@ export default {
   },
   watch: {
     active(val, oldVal) {
-      this.snackbar = val
+      this.snackbar = true
     },
   },
 }

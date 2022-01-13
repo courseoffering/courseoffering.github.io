@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{ selectedClasses }}
     <!-- <ClassesCalendar /> -->
     <!-- <ClassesSelectedStats /> -->
     <ClassesFilters
@@ -9,7 +10,11 @@
       :selectedSemstersProp="selectedSemsters"
       :departments="departments"
     />
-    <ClassesList :loading="loadingClasses" :classes="filteredClasses" />
+    <ClassesList
+      :loading="loadingClasses"
+      :classes="filteredClasses"
+      @class:action="classButtonAction($event)"
+    />
     <snackBar :text="snackbarText" :active="snackbarActive" />
   </div>
 </template>
@@ -52,6 +57,7 @@ export default {
       selectedDepartment: null,
       selectedMajor: null,
       selectedSemsters: [0],
+      selectedClasses: [],
       loadingClasses: false,
       snackbarText: '',
       snackbarActive: false,
@@ -63,7 +69,9 @@ export default {
       let filtered = this.rawClasses.filter((c) =>
         this.selectedSemsters.includes(c.semster_index)
       )
-      filtered = filtered.map(findConflicts)
+      filtered = filtered.map((clas) =>
+        findConflicts(clas, this.selectedClasses)
+      )
       filtered = filtered.map(buttonOptions)
 
       return filtered
@@ -72,7 +80,6 @@ export default {
   methods: {
     majorChange(e) {
       this.selectedMajor = e.abbrv
-      this.snackbarActive = false
       this.getCP()
     },
     departmentChange(e) {
@@ -87,11 +94,21 @@ export default {
         this.rawClasses = response.data
         this.loadingClasses = false
       } catch (error) {
-        this.snackbarActive = true
+        this.snackbarActive = !this.snackbarActive
         this.snackbarText = `${this.selectedDepartment}, ${this.selectedMajor} Not yet supported!`
         this.loadingClasses = false
         this.rawClasses = []
         console.log(error) //TODO: handle error
+      }
+    },
+    // If the button was pressed
+    classButtonAction(e) {
+      console.log(e)
+      if (this.selectedClasses.find((c) => c.crn == e.crn)) {
+        this.snackbarActive = !this.snackbarActive
+        this.snackbarText = `Already added ${e.name}`
+      } else {
+        this.selectedClasses.push(e)
       }
     },
   },
