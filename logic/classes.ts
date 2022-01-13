@@ -3,6 +3,7 @@ export function buttonOptions(todo: any) {
 	let tooltips: String[] = []
 	let color = 'grey'
 	let icon = 'mdi-plus'
+	let disabled = false
 
 	let sameCourse = todo.conflicts.sameCourse
 	// course already added
@@ -12,19 +13,22 @@ export function buttonOptions(todo: any) {
 			icon = 'mdi-check'
 			tooltips = ['Remove']
 			color = 'success'
-		} else if (todo.conflicts._any) {
-			icon = 'mdi-alert-circle'
-			tooltips = todo.conflicts.time.map((c: any) => 'Conflict: ' + c.name)
-			color = 'error'
 		} else {
 			color = 'lime'
 			tooltips = ['Course added in Section: ' + sameCourse.section, 'Replace?']
+			icon = 'mdi-plus'
 		}
+	}
+	if (todo.conflicts._any) {
+		icon = 'mdi-alert-circle'
+		tooltips = todo.conflicts.time.map((c: any) => 'Conflict: ' + c.name)
+		color = 'error'
+		disabled = true
 	}
 
 	let buttonOptions = {
 		icon,
-		disabled: todo.conflicts._any,
+		disabled,
 		color,
 		tooltips,
 	}
@@ -48,7 +52,8 @@ export function findConflicts(checkClass: any, selectedClasses: any[]) {
 		return (
 			checkConflict(sc, checkClass) &&
 			// can't conflict with itself or other same courses
-			(sc.crn != checkClass.crn || sc.code != checkClass.code)
+			sc.crn != checkClass.crn &&
+			sc.code != checkClass.code
 		)
 	})
 	let _any = time.length > 0
