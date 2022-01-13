@@ -16,6 +16,7 @@
 
 <script>
 const axios = require('axios')
+import { buttonOptions, findConflicts } from '@/logic/classes'
 
 export default {
   data() {
@@ -58,9 +59,14 @@ export default {
   },
   computed: {
     filteredClasses() {
-      return this.rawClasses.filter((c) =>
+      // selected semster (from <ClassesFilters/>
+      let filtered = this.rawClasses.filter((c) =>
         this.selectedSemsters.includes(c.semster_index)
       )
+      filtered = filtered.map(findConflicts)
+      filtered = filtered.map(buttonOptions)
+
+      return filtered
     },
   },
   methods: {
