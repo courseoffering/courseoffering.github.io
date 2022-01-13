@@ -61,7 +61,7 @@ function time(today, range, i) {
   )
 }
 </script>
-<style>
+<style scoped>
 .v-calendar-daily__scroll-area {
   overflow-y: auto;
 }

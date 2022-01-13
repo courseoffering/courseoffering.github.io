@@ -93,7 +93,7 @@ export default {
       let url = `/CP/${this.selectedDepartment}/${this.selectedMajor}.json`
       this.loadingClasses = true
       try {
-        const response = await axios.get(url)
+        const response = await this.$axios.get(url)
         this.rawClasses = response.data
         this.loadingClasses = false
       } catch (error) {
