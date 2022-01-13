@@ -1,10 +1,10 @@
 <template>
   <div>
     <pre>
-    {{ selectedClasses.map((c) => ({ name: c.name, crn: c.crn })) }}
+    <!-- {{ selectedClasses.map((c) => ({ name: c.name, crn: c.crn })) }} -->
     <!-- {{ selectedClasses }} -->
     </pre>
-    <!-- <ClassesCalendar /> -->
+    <ClassesCalendar :classes="selectedClasses" />
     <!-- <ClassesSelectedStats /> -->
     <ClassesFilters
       @major:change="majorChange($event)"
@@ -106,7 +106,6 @@ export default {
     },
     // If the button was pressed
     classButtonAction(e) {
-      console.log(e)
       if (this.selectedClasses.find((c) => c.crn == e.crn)) {
         this.snackbarActive = !this.snackbarActive
         this.snackbarText = `Removing ${e.name}`
