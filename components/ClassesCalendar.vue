@@ -6,11 +6,10 @@
         :now="today"
         :value="today"
         first-interval="7"
-        interval-count="16"
+        :interval-count="intervalCount"
         type="week"
         :events="events"
       ></v-calendar>
-      <!-- TODO: dynamic interval count   -->
     </v-col>
   </v-row>
 </template>
@@ -22,6 +21,18 @@ export default {
     return { today: '2022-05-0' }
   },
   computed: {
+    intervalCount() {
+      let intervals = this.events.map((e) => e.end.slice(11, 13))
+      console.log(intervals)
+      intervals = intervals.map(Number)
+      console.log(intervals)
+
+      if (intervals.length == 0) {
+        return 5
+      } else {
+        return Math.max(...intervals) - 5
+      }
+    },
     events() {
       let today = this.today
       let a = this.classes.map((c) => {
