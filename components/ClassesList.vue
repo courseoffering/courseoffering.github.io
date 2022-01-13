@@ -1,7 +1,7 @@
 <template>
   <v-row justify="center" align="center">
     <v-col cols="12" sm="12" md="10" lg="8">
-      <v-card>
+      <v-card :disabled="loading">
         <v-card-title>
           <v-text-field
             v-model="search"

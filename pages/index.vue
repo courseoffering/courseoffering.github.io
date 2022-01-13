@@ -2,12 +2,21 @@
   <div>
     <!-- <ClassesCalendar /> -->
     <!-- <ClassesSelectedStats /> -->
-    <ClassesFilters :departments="departments" />
-    <ClassesList :classes="classes" />
+    <ClassesFilters
+      @major:change="majorChange($event)"
+      @department:change="departmentChange($event)"
+      @semsters:change="selectedSemsters = $event"
+      :selectedSemstersProp="selectedSemsters"
+      :departments="departments"
+    />
+    <ClassesList :loading="loadingClasses" :classes="filteredClasses" />
+    <snackBar :text="snackbarText" :active="snackbarActive" />
   </div>
 </template>
 
 <script>
+const axios = require('axios')
+
 export default {
   data() {
     return {
@@ -38,39 +47,47 @@ export default {
           { name: 'Networking', abbrv: 'Net', sems: [...Array(9).keys()] },
         ],
       },
-      classes: [
-        {
-          code: '00000',
-          name: 'Course Name',
-          crn: '01123',
-          section: '03',
-          days: 'MWT',
-          time: '09:30-12:00',
-          instructor: 'Ins Name',
-          semster_index: 1,
-        },
-        {
-          code: '00010',
-          name: 'Course Name',
-          crn: '01121',
-          section: '03',
-          days: 'MWT',
-          time: '09:30-12:00',
-          instructor: 'Ins Name',
-          semster_index: 1,
-        },
-        {
-          code: '00001',
-          name: 'Course 2',
-          crn: '01122',
-          section: '01',
-          days: 'MWT',
-          time: '09:30-12:00',
-          instructor: 'Ins Name2',
-          semster_index: 2,
-        },
-      ],
+      rawClasses: [],
+      selectedDepartment: null,
+      selectedMajor: null,
+      selectedSemsters: [0],
+      loadingClasses: false,
+      snackbarText: '',
+      snackbarActive: false,
     }
+  },
+  computed: {
+    filteredClasses() {
+      return this.rawClasses.filter((c) =>
+        this.selectedSemsters.includes(c.semster_index)
+      )
+    },
+  },
+  methods: {
+    majorChange(e) {
+      this.selectedMajor = e.abbrv
+      this.snackbarActive = false
+      this.getCP()
+    },
+    departmentChange(e) {
+      this.selectedDepartment = e
+    },
+    // gets Classs for Plan/Major
+    async getCP() {
+      let url = `/CP/${this.selectedDepartment}/${this.selectedMajor}.json`
+      this.loadingClasses = true
+      try {
+        const response = await axios.get(url)
+        this.rawClasses = response.data
+        this.loadingClasses = false
+      } catch (error) {
+        this.snackbarActive = true
+        this.snackbarText = `${this.selectedDepartment}, ${this.selectedMajor} Not yet supported!`
+        this.loadingClasses = false
+        this.rawClasses = []
+        console.log(error) //TODO: handle error
+      }
+    },
   },
 }
 </script>

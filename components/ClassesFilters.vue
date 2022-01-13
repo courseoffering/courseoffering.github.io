@@ -1,7 +1,7 @@
 <template>
   <v-row justify="center" align="center">
     <v-col cols="12" sm="12" md="10" lg="8">
-      <v-card>
+      <v-card :loading="loading">
         <v-card-title> Filters </v-card-title>
         <v-card-actions>
           <v-container fluid>
@@ -11,6 +11,7 @@
                   v-model="selectedDepartment"
                   :items="Object.keys(departments)"
                   label="Department"
+                  @input="$emit('department:change', $event)"
                 ></v-select>
               </v-col>
 
@@ -29,7 +30,10 @@
               <v-col class="d-flex" cols="12" sm="4">
                 <v-select
                   :items="semsters"
+                  v-model="selectedSemsters"
                   label="Semsters"
+                  :clearable="true"
+                  :deletable-chips="true"
                   :disabled="!selectedMajor"
                   @input="$emit('semsters:change', $event)"
                   chips
@@ -43,16 +47,19 @@
     </v-col>
   </v-row>
 </template>
-<script lang="ts">
+<script>
 export default {
   props: {
     departments: { type: Object },
+    loading: { type: Boolean, default: false },
+    selectedSemstersProp: { type: Array },
   },
-  emits: ['major:change', 'semsters:change'],
+  emits: ['major:change', 'semsters:change', 'department:change'],
   data() {
     return {
       selectedDepartment: null,
       selectedMajor: null,
+      selectedSemsters: this.selectedSemstersProp,
     }
   },
   computed: {
