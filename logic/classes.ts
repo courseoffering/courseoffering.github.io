@@ -1,15 +1,16 @@
+import { areIntervalsOverlapping } from 'date-fns'
 // too lazy to  add types ;)
-export function buttonOptions(todo: any) {
+export function buttonOptions(checkClass: any) {
 	let tooltips: String[] = []
 	let color = 'grey'
 	let icon = 'mdi-plus'
 	let disabled = false
 
-	let sameCourse = todo.conflicts.sameCourse
+	let sameCourse = checkClass.conflicts.sameCourse
 	// course already added
 	if (sameCourse) {
 		// same class
-		if (sameCourse.crn == todo.crn) {
+		if (sameCourse.crn == checkClass.crn) {
 			icon = 'mdi-check'
 			tooltips = ['Remove']
 			color = 'success'
@@ -19,9 +20,9 @@ export function buttonOptions(todo: any) {
 			icon = 'mdi-plus'
 		}
 	}
-	if (todo.conflicts._any) {
+	if (checkClass.conflicts._any) {
 		icon = 'mdi-alert-circle'
-		tooltips = todo.conflicts.time.map((c: any) => 'Conflict: ' + c.name)
+		tooltips = checkClass.conflicts.time.map((c: any) => 'Conflict: ' + c.name)
 		color = 'error'
 		disabled = true
 	}
@@ -32,7 +33,7 @@ export function buttonOptions(todo: any) {
 		color,
 		tooltips,
 	}
-	return { ...todo, buttonOptions }
+	return { ...checkClass, buttonOptions }
 }
 export function findConflicts(checkClass: any, selectedClasses: any[]) {
 	// same course
@@ -62,6 +63,20 @@ export function findConflicts(checkClass: any, selectedClasses: any[]) {
 	return { ...checkClass, conflicts }
 }
 
-function checkConflict(c1: any, c2: any): boolean {
-	return JSON.stringify(c1.days) == JSON.stringify(c2.days)
+function checkConflict(c1s: any, c2s: any): boolean {
+	let intersection = c1s.days.filter((dayc1: any) => c2s.days.includes(dayc1))
+	if (intersection.length > 0) {
+		let c1time = c1s.time.split('-')
+		let c2time = c2s.time.split('-')
+		let c1t1: number = parseInt(c1time[0])
+		let c1t2: number = parseInt(c1time[1])
+		let c2t1: number = parseInt(c2time[0])
+		let c2t2: number = parseInt(c2time[1])
+
+		return areIntervalsOverlapping(
+			{ start: new Date(c1t1), end: new Date(c1t2) },
+			{ start: new Date(c2t1), end: new Date(c2t2) }
+		)
+	}
+	return false
 }
