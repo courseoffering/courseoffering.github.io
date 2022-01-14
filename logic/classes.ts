@@ -41,7 +41,11 @@ export function buttonOptions(checkClass: any) {
 		]
 		if (checkClass.available == 'Full') icon = 'mdi-alert-plus'
 		// class itself is added, but full
-		if (sameCourse && sameCourse.crn == checkClass.crn) color = 'success'
+		if (sameCourse && sameCourse.crn == checkClass.crn) {
+			color = 'success'
+		} else if (sameCourse && sameCourse.crn != checkClass.crn) {
+			color = 'warning'
+		}
 	}
 
 	let buttonOptions = {
