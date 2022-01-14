@@ -25,7 +25,7 @@
           show-group-by
         >
           <template v-slot:item.days="{ item }">
-            <v-chip v-for="day in item.days" :key="day">
+            <v-chip v-ripple v-for="day in item.days" :key="day">
               {{ daysNames[day] }}
             </v-chip>
           </template>
@@ -40,6 +40,7 @@
                     :disabled="item.buttonOptions.disabled"
                     fab
                     small
+                    v-ripple
                     @click="$emit('class:action', item)"
                   >
                     <v-icon> {{ item.buttonOptions.icon }} </v-icon>
