@@ -2,7 +2,7 @@ import { areIntervalsOverlapping } from 'date-fns'
 // too lazy to  add types ;)
 export function buttonOptions(checkClass: any) {
 	let tooltips: String[] = []
-	let color = 'grey'
+	let color = 'primary'
 	let icon = 'mdi-plus'
 	let disabled = false
 
@@ -15,7 +15,7 @@ export function buttonOptions(checkClass: any) {
 			tooltips = ['Remove']
 			color = 'success'
 		} else {
-			color = 'lime'
+			color = 'warning'
 			tooltips = ['Course added in Section: ' + sameCourse.section, 'Replace?']
 			icon = 'mdi-plus'
 		}
