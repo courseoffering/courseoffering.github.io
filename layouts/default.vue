@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <!-- <v-navigation-drawer
+    <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
       :clipped="clipped"
@@ -12,6 +12,7 @@
           v-for="(item, i) in items"
           :key="i"
           :to="item.to"
+          :href="item.href"
           router
           exact
         >
@@ -23,7 +24,7 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-    </v-navigation-drawer> -->
+    </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title v-text="title" />
@@ -84,7 +85,7 @@ export default {
   },
   data() {
     return {
-      clipped: false,
+      clipped: true,
       drawer: false,
       fixed: false,
       selectedLanguage: 1,
@@ -97,6 +98,16 @@ export default {
           icon: 'mdi-apps',
           title: 'Welcome',
           to: '/',
+        },
+        {
+          icon: 'mdi-github',
+          title: 'Source Code',
+          href: 'https://github.com/courseoffering/courseoffering.github.io',
+        },
+        {
+          icon: 'mdi-scale-balance',
+          title: 'License',
+          href: 'https://github.com/courseoffering/courseoffering.github.io/blob/main/LICENSE',
         },
       ],
       miniVariant: false,
