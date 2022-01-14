@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app>
     <!-- <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
@@ -28,14 +28,14 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title v-text="title" />
 
-      <v-divider inset vertical></v-divider>
+      <v-divider class="mx-4" inset vertical></v-divider>
       <v-spacer />
       <!-- Language button -->
       <div class="text-center">
         <v-menu bottom offset-y open-on-hover rounded="lg">
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="grey" large icon v-bind="attrs" v-on="on">
-              <v-icon>{{ 'mdi-translate' }}</v-icon>
+              <v-icon>mdi-translate</v-icon>
             </v-btn>
           </template>
           <v-list>
@@ -53,6 +53,17 @@
         </v-menu>
       </div>
       <!-- Language button -->
+      <!-- Dark/Light Mode -->
+      <v-btn
+        color="grey"
+        large
+        icon
+        v-bind="attrs"
+        v-on="on"
+        @click="switchTheme"
+      >
+        <v-icon>{{ 'mdi-brightness-6' }}</v-icon>
+      </v-btn>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -73,6 +84,9 @@ export default {
       this.selectedLanguage = i
       this.$vuetify.lang.current = this.languages[i].code
       this.$vuetify.rtl = this.languages[i].rtl
+    },
+    switchTheme() {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
     },
   },
   data() {
