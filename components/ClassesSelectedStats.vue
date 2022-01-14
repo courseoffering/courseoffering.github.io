@@ -28,7 +28,6 @@ export default {
   },
   computed: {
     totalCredits() {
-      console.log(this.selectedClasses)
       return this.selectedClasses.reduce((a, b) => a + b.credits, 0)
     },
   },
