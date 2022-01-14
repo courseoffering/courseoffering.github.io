@@ -133,7 +133,7 @@ export default {
       let rand_number = e.name
         .split('')
         .map((c) => c.codePointAt(0))
-        .reduce((a, b) => a + b)
+        .reduce((a, b) => a + b, 0)
       let l = this.colors.length
       return this.colors[rand_number % l]
     },
