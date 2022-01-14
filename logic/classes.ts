@@ -22,11 +22,10 @@ export function buttonOptions(checkClass: any) {
 	}
 	if (checkClass.conflicts._any) {
 		icon = 'mdi-alert-circle'
-		tooltips = [
-			...tooltips,
-			...checkClass.conflicts.time.map((c: any) => 'Conflict: ' + c.name),
-		]
-		color = 'error'
+			; (tooltips = checkClass.conflicts.time.map(
+				(c: any) => 'Conflict: ' + c.name
+			)),
+				(color = 'error')
 		disabled = true
 	}
 	let availability: string = checkClass.available
