@@ -22,7 +22,10 @@ export function buttonOptions(checkClass: any) {
 	}
 	if (checkClass.conflicts._any) {
 		icon = 'mdi-alert-circle'
-		tooltips = checkClass.conflicts.time.map((c: any) => 'Conflict: ' + c.name)
+		tooltips = [
+			...tooltips,
+			...checkClass.conflicts.time.map((c: any) => 'Conflict: ' + c.name),
+		]
 		color = 'error'
 		disabled = true
 	}
@@ -31,11 +34,14 @@ export function buttonOptions(checkClass: any) {
 		icon = 'mdi-alert'
 		color = 'error'
 		tooltips = [
+			...tooltips,
 			availability == 'Unknown'
 				? 'Not Available for an Unknown reason!'
 				: availability,
 		]
 		if (checkClass.available == 'Full') icon = 'mdi-alert-plus'
+		// class itself is added, but full
+		if (sameCourse && sameCourse.crn == checkClass.crn) color = 'success'
 	}
 
 	let buttonOptions = {
