@@ -26,6 +26,17 @@ export function buttonOptions(checkClass: any) {
 		color = 'error'
 		disabled = true
 	}
+	let availability: string = checkClass.available
+	if (availability != 'Available') {
+		color = 'error'
+		disabled = true
+		tooltips = [
+			availability == 'UnKnown'
+				? 'Not Available for an Unknown reason!'
+				: availability,
+		]
+		if (checkClass.available == 'Full') icon = 'mdi-alert-plus'
+	}
 
 	let buttonOptions = {
 		icon,
