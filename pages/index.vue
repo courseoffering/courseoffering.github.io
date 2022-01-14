@@ -4,6 +4,7 @@
     <!-- {{ selectedClasses.map((c) => ({ name: c.name, crn: c.crn })) }} -->
     <!-- {{ selectedClasses }} -->
     <!-- </pre> -->
+
     <ClassesCalendar @class:delete="deleteClass" :classes="selectedClasses" />
     <ClassesSelectedStats :selectedClasses="selectedClasses" />
     <ClassesFilters
