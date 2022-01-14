@@ -54,14 +54,7 @@
       </div>
       <!-- Language button -->
       <!-- Dark/Light Mode -->
-      <v-btn
-        color="grey"
-        large
-        icon
-        v-bind="attrs"
-        v-on="on"
-        @click="switchTheme"
-      >
+      <v-btn color="grey" large icon @click="switchTheme">
         <v-icon>{{ 'mdi-brightness-6' }}</v-icon>
       </v-btn>
     </v-app-bar>

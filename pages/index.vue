@@ -1,11 +1,11 @@
 <template>
   <div>
-    <pre>
+    <!-- <pre> -->
     <!-- {{ selectedClasses.map((c) => ({ name: c.name, crn: c.crn })) }} -->
     <!-- {{ selectedClasses }} -->
-    </pre>
-    <ClassesCalendar :classes="selectedClasses" />
-    <!-- <ClassesSelectedStats /> -->
+    <!-- </pre> -->
+    <ClassesCalendar @class:delete="deleteClass" :classes="selectedClasses" />
+    <ClassesSelectedStats :selectedClasses="selectedClasses" />
     <ClassesFilters
       @major:change="majorChange($event)"
       @department:change="departmentChange($event)"
@@ -81,6 +81,11 @@ export default {
     },
   },
   methods: {
+    deleteClass(e) {
+      this.selectedClasses = this.selectedClasses.filter(
+        (c) => c.code != e.code
+      )
+    },
     majorChange(e) {
       this.selectedMajor = e.abbrv
       this.getCP()
@@ -109,9 +114,7 @@ export default {
       if (this.selectedClasses.find((c) => c.crn == e.crn)) {
         this.snackbarActive = !this.snackbarActive
         this.snackbarText = `Removing ${e.name}`
-        this.selectedClasses = this.selectedClasses.filter(
-          (c) => c.code != e.code
-        )
+        this.deleteClass(e)
         //
       } else if (this.selectedClasses.find((c) => c.code == e.code)) {
         this.snackbarActive = !this.snackbarActive
