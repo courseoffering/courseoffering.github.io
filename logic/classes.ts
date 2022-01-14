@@ -31,7 +31,7 @@ export function buttonOptions(checkClass: any) {
 		icon = 'mdi-alert'
 		color = 'error'
 		tooltips = [
-			availability == 'UnKnown'
+			availability == 'Unknown'
 				? 'Not Available for an Unknown reason!'
 				: availability,
 		]
