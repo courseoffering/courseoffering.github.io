@@ -27,7 +27,32 @@
     <v-app-bar :clipped-left="clipped" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title v-text="title" />
+
+      <v-divider inset vertical></v-divider>
       <v-spacer />
+      <!-- Language button -->
+      <div class="text-center">
+        <v-menu bottom offset-y open-on-hover rounded="lg">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn color="grey" large icon v-bind="attrs" v-on="on">
+              <v-icon>{{ 'mdi-translate' }}</v-icon>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-subheader>TRANSLATIONS</v-subheader>
+            <v-list-item-group v-model="selectedLanguage" color="primary">
+              <v-list-item
+                v-for="(lang, index) in languages"
+                :key="index"
+                @click="switchLang(index)"
+              >
+                <v-list-item-title>{{ lang.name }}</v-list-item-title>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+        </v-menu>
+      </div>
+      <!-- Language button -->
     </v-app-bar>
     <v-main>
       <v-container>
@@ -43,11 +68,23 @@
 <script>
 export default {
   name: 'DefaultLayout',
+  methods: {
+    switchLang(i) {
+      this.selectedLanguage = i
+      this.$vuetify.lang.current = this.languages[i].code
+      this.$vuetify.rtl = this.languages[i].rtl
+    },
+  },
   data() {
     return {
       clipped: false,
       drawer: false,
       fixed: false,
+      selectedLanguage: 1,
+      languages: [
+        { name: 'عربي', code: 'ar', rtl: true },
+        { name: 'English', code: 'en', rtl: false },
+      ],
       items: [
         {
           icon: 'mdi-apps',
