@@ -20,11 +20,17 @@
               :color="getEventColor(event)"
               height="100%"
               class="text-center"
+              v-ripple
               tile
             >
-              {{ event.name }}
-              <!-- <v-chip> {{ event.start)}} </v-chip> -->
-              <!-- <v-chip> {{ event.end)}} </v-chip> -->
+              <!-- centering  -->
+              <v-container fill-height fluid>
+                <v-row align="center" justify="center">
+                  <v-col>
+                    {{ event.name }}
+                  </v-col>
+                </v-row>
+              </v-container>
             </v-card>
           </template>
         </v-calendar>
