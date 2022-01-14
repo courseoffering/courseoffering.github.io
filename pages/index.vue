@@ -114,7 +114,7 @@ export default {
     classButtonAction(e) {
       if (this.selectedClasses.find((c) => c.crn == e.crn)) {
         this.snackbarActive = !this.snackbarActive
-        this.snackbarText = `Removing ${e.name}`
+        this.snackbarText = `Removing: ${e.name}`
         this.deleteClass(e)
         //
       } else if (this.selectedClasses.find((c) => c.code == e.code)) {
