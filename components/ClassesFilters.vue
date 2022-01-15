@@ -32,8 +32,10 @@
                   :items="semsters"
                   v-model="selectedSemsters"
                   label="Semsters"
+                  item-text="text"
+                  item-value="value"
                   :clearable="true"
-                  :deletable-chips="true"
+                  :deletable-chips="false"
                   :disabled="!selectedMajor"
                   @input="$emit('semsters:change', $event)"
                   chips
@@ -64,8 +66,14 @@ export default {
   },
   computed: {
     semsters() {
+      //text and value are off by 1
+      //(counting starts from 0 for text)
+      //(counting starts from 1 for text)
       if (this.selectedMajor) {
-        let sems = this.selectedMajor.sems
+        let sems = this.selectedMajor.sems.map((a) => ({
+          text: a + 1,
+          value: a,
+        }))
         return sems
       } else {
         return []
