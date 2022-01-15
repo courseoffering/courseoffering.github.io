@@ -29,8 +29,10 @@
 <script>
 const axios = require('axios')
 import { buttonOptions, findConflicts } from '@/logic/classes'
+import saveState from 'vue-save-state'
 
 export default {
+  mixins: [saveState],
   data() {
     return {
       departments: {
@@ -91,6 +93,12 @@ export default {
     },
   },
   methods: {
+    getSaveStateConfig() {
+      return {
+        cacheKey: 'index',
+      }
+    },
+
     deleteClass(e) {
       this.selectedClasses = this.selectedClasses.filter(
         (c) => c.code != e.code
