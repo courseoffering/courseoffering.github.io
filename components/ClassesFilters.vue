@@ -33,7 +33,7 @@
                   v-model="selectedSemsters"
                   label="Semsters"
                   :clearable="true"
-                  :deletable-chips="true"
+                  :deletable-chips="false"
                   :disabled="!selectedMajor"
                   @input="$emit('semsters:change', $event)"
                   chips
