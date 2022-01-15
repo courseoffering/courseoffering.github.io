@@ -77,12 +77,12 @@
 
                     <tr>
                       <td>Start:</td>
-                      <td>{{ selectedEvent.start }}</td>
+                      <td>{{ time('', selectedEvent.time, 0) }}</td>
                     </tr>
 
                     <tr>
                       <td>End:</td>
-                      <td>{{ selectedEvent.end }}</td>
+                      <td>{{ time('', selectedEvent.time, 1) }}</td>
                     </tr>
 
                     <tr>
@@ -124,6 +124,18 @@ export default {
     }
   },
   methods: {
+    //MAGIC!
+    // range = "1030-1430", i=0> start, i=1> end
+    time(today, range, i) {
+      return (
+        today +
+        ' ' +
+        range.slice(0 + 5 * i, 2 + 5 * i) +
+        ':' +
+        range.slice(2 + 5 * i, 4 + 5 * i)
+      )
+    },
+
     getEventColor(e) {
       // in case nothing is selected yet
       if (!e.name) {
@@ -177,24 +189,13 @@ export default {
           return {
             //MAGIC!
             name: c.name,
-            start: time(today + (1 + d), c.time, 0),
-            end: time(today + (1 + d), c.time, 1),
+            start: this.time(today + (1 + d), c.time, 0),
+            end: this.time(today + (1 + d), c.time, 1),
           }
         })
       })
       return a.flat(1)
     },
   },
-}
-//MAGIC!
-// range = "1030-1430", i=0> start, i=1> end
-function time(today, range, i) {
-  return (
-    today +
-    ' ' +
-    range.slice(0 + 5 * i, 2 + 5 * i) +
-    ':' +
-    range.slice(2 + 5 * i, 4 + 5 * i)
-  )
 }
 </script>
