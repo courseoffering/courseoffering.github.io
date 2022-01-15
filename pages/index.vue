@@ -31,6 +31,7 @@ export default {
   data() {
     return {
       departments: {
+        // THIS SHOULD BE FROM API!!
         Engineering: [
           {
             name: 'Electrical Engineering',
@@ -57,6 +58,7 @@ export default {
           {
             name: 'Networking',
             abbrv: 'Net',
+            // TODO: autogenerate key range! (by scrapper)
             sems: [...Array(9).keys()].map((a) => a + 1),
           },
         ],

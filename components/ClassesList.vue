@@ -19,7 +19,7 @@
           sort-by="semster_index"
           :dense="false"
           :loading="loading"
-          group-by="semster_index"
+          group-by="name"
           class="elevation-1"
           :search="search"
           show-group-by
