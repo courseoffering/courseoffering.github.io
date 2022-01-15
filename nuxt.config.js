@@ -1,6 +1,10 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
+	env: {
+		// changing this will clear localstorage by a plugin
+		APP_VERSION: 'v0.0.7-alpha',
+	},
 	telemetry: false,
 	// Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
 	ssr: false,
@@ -25,7 +29,7 @@ export default {
 	css: ['@/assets/css/main.css'],
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-	plugins: [],
+	plugins: [{ src: '@/plugins/clearLocalStorageOnUpdate.js', mode: 'client' }],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
 	components: true,
