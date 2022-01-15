@@ -6,7 +6,10 @@
     <!-- </pre> -->
 
     <ClassesCalendar @class:delete="deleteClass" :classes="selectedClasses" />
-    <ClassesSelectedStats :selectedClasses="selectedClasses" />
+    <ClassesSelectedStats
+      @class:delete="deleteClass"
+      :selectedClasses="selectedClasses"
+    />
     <ClassesFilters
       @major:change="majorChange($event)"
       @department:change="departmentChange($event)"

@@ -8,6 +8,7 @@
             class="ma-2"
             v-for="clas in selectedClasses"
             :key="clas.crn"
+            @click:close="$emit('class:delete', clas)"
             close
           >
             {{ clas.name }}{{ clas.credits }} {{ clas.crn }}
