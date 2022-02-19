@@ -59,14 +59,14 @@ export default {
             sems: [...Array(9).keys()].map((a) => a + 1),
           },
         ],
-        'Computer Science': [
-          {
-            name: 'Networking',
-            abbrv: 'Net',
-            // TODO: autogenerate key range! (by scrapper)
-            sems: [...Array(9).keys()].map((a) => a + 1),
-          },
-        ],
+          /* 'Computer Science': [
+	   *   {
+	   *     name: 'Networking',
+	   *     abbrv: 'Net',
+	   *     // TODO: autogenerate key range! (by scrapper)
+	   *     sems: [...Array(9).keys()].map((a) => a + 1),
+	   *   },
+	   * ], */
       },
       rawClasses: [],
       selectedDepartment: null,
