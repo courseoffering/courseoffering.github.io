@@ -7,6 +7,7 @@
       {{ otherError }}
     </h1>
     <NuxtLink to="/"> Home page </NuxtLink>
+    <script data-goatcounter="https://courseoffering.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   </v-app>
 </template>
 

@@ -67,7 +67,9 @@
     <!-- <v-footer :absolute="!fixed" app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer> -->
+<script data-goatcounter="https://courseoffering.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   </v-app>
+
 </template>
 
 <script>

@@ -1,5 +1,10 @@
 # test
 
+# Warning!
+This site has analytics, if you decide to fork, remove it from [layouts/default.vue](/home/user/code/kfu/KFU-reg.github.io/layouts/default.vue) and
+[layouts/error.vue](/home/user/code/kfu/KFU-reg.github.io/layouts/default.vue)!
+
+
 ## Build Setup
 
 ```bash
