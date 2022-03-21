@@ -3,7 +3,7 @@ import colors from 'vuetify/es5/util/colors'
 export default {
 	env: {
 		// changing this will clear localstorage by a plugin
-		APP_VERSION: 'v0.0.8-alpha',
+		APP_VERSION: 'v0.0.1-beta',
 	},
 	telemetry: false,
 	// Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
