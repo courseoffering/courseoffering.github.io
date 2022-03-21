@@ -189,8 +189,8 @@ export default {
           return {
             //MAGIC!
             name: c.name,
-            start: this.time(today + (1 + d), c.time, 0),
-            end: this.time(today + (1 + d), c.time, 1),
+            start: this.time(today + (d), c.time, 0),
+            end: this.time(today + (d), c.time, 1),
           }
         })
       })
