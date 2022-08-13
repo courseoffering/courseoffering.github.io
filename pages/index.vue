@@ -41,23 +41,23 @@ export default {
           {
             name: 'Electrical Engineering',
             abbrv: 'EE',
-            sems: [...Array(9).keys()].map((a) => a + 1),
+            sems: [...Array(12).keys()].map((a) => a + 1),
           },
-          {
-            name: 'Mechanical Engineering',
-            abbrv: 'ME',
-            sems: [...Array(9).keys()].map((a) => a + 1),
-          },
-          {
-            name: 'Chemical   Engineering',
-            abbrv: 'ChE',
-            sems: [...Array(9).keys()].map((a) => a + 1),
-          },
-          {
-            name: 'Civil      Engineering',
-            abbrv: 'CE',
-            sems: [...Array(9).keys()].map((a) => a + 1),
-          },
+          // {
+          //   name: 'Mechanical Engineering',
+          //   abbrv: 'ME',
+          //   sems: [...Array(9).keys()].map((a) => a + 1),
+          // },
+          // {
+          //   name: 'Chemical   Engineering',
+          //   abbrv: 'ChE',
+          //   sems: [...Array(9).keys()].map((a) => a + 1),
+          // },
+          // {
+          //   name: 'Civil      Engineering',
+          //   abbrv: 'CE',
+          //   sems: [...Array(9).keys()].map((a) => a + 1),
+          // },
         ],
           /* 'Computer Science': [
 	   *   {
