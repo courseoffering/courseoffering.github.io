@@ -12,13 +12,11 @@
 	  :colleges="colleges"
 	  :genders="genders"
     />
-	<Lazy>
-      <ClassesList
-        :loading="loadingClasses"
-        :classes="filteredClasses"
-        @class:action="classButtonAction($event)"
-      />
-	</Lazy>
+    <ClassesList
+      :loading="loadingClasses"
+      :classes="filteredClasses"
+      @class:action="classButtonAction($event)"
+    />
     <snackBar :text="snackbarText" :active="snackbarActive" />
   </div>
 </template>
