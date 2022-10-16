@@ -8,36 +8,23 @@
             <v-row align="center">
               <v-col class="d-flex" cols="12" sm="4">
                 <v-select
-                  v-model="selectedDepartment"
-                  :items="Object.keys(departments)"
-                  label="Department"
-                  @input="$emit('department:change', $event)"
+                  v-model="selectedGender"
+                  :items="genders"
+                  label="Gender"
+                  @input="$emit('gender:change', $event)"
                 ></v-select>
               </v-col>
 
               <v-col class="d-flex" cols="12" sm="4">
                 <v-select
-                  v-model="selectedMajor"
-                  :items="departments[selectedDepartment]"
+                  v-model="selectedCollege"
+                  :items="colleges"
                   item-text="name"
                   item-value="abbrv"
-                  label="Major"
+                  label="College"
                   return-object
-                  :disabled="!selectedDepartment"
-                  @input="$emit('major:change', $event)"
-                ></v-select>
-              </v-col>
-              <v-col class="d-flex" cols="12" sm="4">
-                <v-select
-                  :items="semsters"
-                  v-model="selectedSemsters"
-                  label="Semsters"
-                  :clearable="true"
-                  :deletable-chips="false"
-                  :disabled="!selectedMajor"
-                  @input="$emit('semsters:change', $event)"
-                  chips
-                  multiple
+                  :disabled="!selectedGender"
+                  @input="$emit('college:change', $event)"
                 ></v-select>
               </v-col>
             </v-row>
@@ -50,28 +37,18 @@
 <script>
 export default {
   props: {
-    departments: { type: Object },
+    colleges : { type: Array, default: () => [] },
     loading: { type: Boolean, default: false },
-    selectedSemstersProp: { type: Array },
+	genders: {type: Array, default: () => []},
   },
   emits: ['major:change', 'semsters:change', 'department:change'],
   data() {
     return {
-      selectedDepartment: null,
-      selectedMajor: null,
-      selectedSemsters: this.selectedSemstersProp,
+	  selectedGender: null, /* "male" or "female" */
+      selectedCollege: null,
     }
   },
-  computed: {
-    semsters() {
-      if (this.selectedMajor) {
-        let sems = this.selectedMajor.sems
-        return sems
-      } else {
-        return []
-      }
-    },
-  },
+  computed: {},
   methods: {},
 }
 </script>

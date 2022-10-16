@@ -15,8 +15,9 @@
         <v-data-table
           :headers="headers"
           :items="classes"
+	      :items-per-page="999"
           item-key="crn"
-          sort-by="semster_index"
+          sort-by="crn"
           :dense="false"
           :loading="loading"
           group-by="name"
@@ -91,7 +92,7 @@ export default {
         { text: 'Days', value: 'days', align: 'right', groupable: false },
         { text: 'time', value: 'time', align: 'right', groupable: false },
         { text: 'Instructor', value: 'instructor', align: 'right' },
-        { text: 'Semster', value: 'semster_index', align: 'right' },
+        // { text: 'Semster', value: 'semster_index', align: 'right' },
         { text: 'button', value: 'button', align: 'right', groupable: false },
       ],
     }

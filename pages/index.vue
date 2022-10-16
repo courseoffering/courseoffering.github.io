@@ -1,9 +1,5 @@
 <template>
   <div>
-    <!-- <pre> -->
-    <!-- {{ selectedClasses.map((c) => ({ name: c.name, crn: c.crn })) }} -->
-    <!-- {{ selectedClasses }} -->
-    <!-- </pre> -->
 
     <ClassesCalendar @class:delete="deleteClass" :classes="selectedClasses" />
     <ClassesSelectedStats
@@ -11,17 +7,18 @@
       :selectedClasses="selectedClasses"
     />
     <ClassesFilters
-      @major:change="majorChange($event)"
-      @department:change="departmentChange($event)"
-      @semsters:change="selectedSemsters = $event"
-      :selectedSemstersProp="selectedSemsters"
-      :departments="departments"
+      @college:change="collegeChange($event)"
+      @gender:change="genderChange($event)"
+	  :colleges="colleges"
+	  :genders="genders"
     />
-    <ClassesList
-      :loading="loadingClasses"
-      :classes="filteredClasses"
-      @class:action="classButtonAction($event)"
-    />
+	<Lazy>
+      <ClassesList
+        :loading="loadingClasses"
+        :classes="filteredClasses"
+        @class:action="classButtonAction($event)"
+      />
+	</Lazy>
     <snackBar :text="snackbarText" :active="snackbarActive" />
   </div>
 </template>
@@ -35,43 +32,30 @@ export default {
   mixins: [saveState],
   data() {
     return {
-      departments: {
-        // THIS SHOULD BE FROM API!!
-        Engineering: [
-          {
-            name: 'Electrical Engineering',
-            abbrv: 'EE',
-            sems: [...Array(12).keys()].map((a) => a + 1),
-          },
-          // {
-          //   name: 'Mechanical Engineering',
-          //   abbrv: 'ME',
-          //   sems: [...Array(9).keys()].map((a) => a + 1),
-          // },
-          // {
-          //   name: 'Chemical   Engineering',
-          //   abbrv: 'ChE',
-          //   sems: [...Array(9).keys()].map((a) => a + 1),
-          // },
-          // {
-          //   name: 'Civil      Engineering',
-          //   abbrv: 'CE',
-          //   sems: [...Array(9).keys()].map((a) => a + 1),
-          // },
-        ],
-          /* 'Computer Science': [
-	   *   {
-	   *     name: 'Networking',
-	   *     abbrv: 'Net',
-	   *     // TODO: autogenerate key range! (by scrapper)
-	   *     sems: [...Array(9).keys()].map((a) => a + 1),
-	   *   },
-	   * ], */
-      },
+	  colleges:
+       		[
+         "الطب البيطيري",
+         "العلوم",
+         "علوم الحاسب وتقنية المعلومات",
+         "الصيدلة الاكلينيكية",
+         "الدراسات التطبيقية وخدمة المجمتع",
+         "الطب",
+         "إدارة الأعمال",
+         "الهندسة",
+         "العلوم الطبية التطبيقية",
+         "العلوم الزراعية والاغذية",
+         "الحقوق",
+         "الاسنان",
+         "مركز اللغة الانجيليزية",
+         // "الدراسات التطبيقية وخدمة المجمتع فرع بقيق"
+         "الآداب",
+         "التربية",
+       ],
+
+	  genders: ["Male", "Female", "Engineer"],
       rawClasses: [],
-      selectedDepartment: null,
-      selectedMajor: null,
-      selectedSemsters: [1],
+      selectedGender: null,
+      selectedCollege: null,
       selectedClasses: [],
       loadingClasses: false,
       snackbarText: '',
@@ -80,11 +64,8 @@ export default {
   },
   computed: {
     filteredClasses() {
-      // selected semster (from <ClassesFilters/>
-      let filtered = this.rawClasses.filter((c) =>
-        this.selectedSemsters.includes(c.semster_index)
-      )
-      filtered = filtered.map((clas) =>
+      // it no longer filters, this naming is due to historic reasons
+      let filtered = this.rawClasses.map((clas) =>
         findConflicts(clas, this.selectedClasses)
       )
       filtered = filtered.map(buttonOptions)
@@ -96,6 +77,7 @@ export default {
     getSaveStateConfig() {
       return {
         cacheKey: 'index',
+		saveProperties: ['selectedClasses'],
       }
     },
 
@@ -104,16 +86,22 @@ export default {
         (c) => c.code != e.code
       )
     },
-    majorChange(e) {
-      this.selectedMajor = e.abbrv
-      this.getCP()
+    genderChange(e) {
+      this.selectedGender = e.toLowerCase()
+	  // don't download if college isn't yet selected
+	  if (this.selectedCollege){
+        this.getClasses()
+	  }
     },
-    departmentChange(e) {
-      this.selectedDepartment = e
+    collegeChange(e) {
+      this.selectedCollege = e
+	  // college can only be selected after gender, no need to check for selectedGender
+      this.getClasses()
     },
     // gets Classs for Plan/Major
-    async getCP() {
-      let url = `/CP/${this.selectedDepartment}/${this.selectedMajor}.json`
+    async getClasses() {
+      let url = `/by_college/${this.selectedGender}/${this.selectedCollege}.json`
+      console.log(url)
       this.loadingClasses = true
       try {
         const response = await this.$axios.get(url)
@@ -121,7 +109,7 @@ export default {
         this.loadingClasses = false
       } catch (error) {
         this.snackbarActive = !this.snackbarActive
-        this.snackbarText = `${this.selectedDepartment}, ${this.selectedMajor} Not yet supported!`
+        this.snackbarText = `${this.selectedGender}, ${this.selectedCollege}: Error fetching!`
         this.loadingClasses = false
         this.rawClasses = []
         console.log(error) //TODO: handle error

@@ -2,7 +2,8 @@
   <v-row justify="center" align="center">
     <v-col cols="12" sm="12" md="12" lg="8">
       <v-card>
-        <v-card-title> Total Credits: {{ totalCredits }}</v-card-title>
+        <!-- <v-card-title> Total Credits: {{ totalCredits }}</v-card-title> -->
+        <v-card-title>Selected Classes:</v-card-title>
         <div class="text-center">
           <v-chip
             class="ma-2"

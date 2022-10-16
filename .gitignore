@@ -88,3 +88,5 @@ sw.*
 
 # Vim swap files
 *.swp
+/static/by_college/
+/static/by_plan/
