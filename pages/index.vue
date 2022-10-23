@@ -9,8 +9,10 @@
     <ClassesFilters
       @college:change="collegeChange($event)"
       @gender:change="genderChange($event)"
+	  @department:change="selectedDepartments = $event"
 	  :colleges="colleges"
 	  :genders="genders"
+	  :allDepartments="allDepartments"
     />
     <ClassesList
       :loading="loadingClasses"
@@ -58,12 +60,23 @@ export default {
       loadingClasses: false,
       snackbarText: '',
       snackbarActive: false,
+	  selectedDepartments: [],
     }
   },
   computed: {
+	  allDepartments(){
+		  // with duplicates
+		  let departments = this.rawClasses.map((a)=> a.department);
+		  // without dups
+		  let unique = [...new Set(departments)];
+		  return unique;
+	  },
     filteredClasses() {
       // it no longer filters, this naming is due to historic reasons
-      let filtered = this.rawClasses.map((clas) =>
+		let filtered = this.rawClasses.filter(clas =>
+			this.selectedDepartments.includes(clas.department)
+		)
+        filtered = filtered.map((clas) =>
         findConflicts(clas, this.selectedClasses)
       )
       filtered = filtered.map(buttonOptions)
