@@ -1,9 +1,6 @@
 name: cd
 
-on:
-  release:
-    types: [published]
-
+on: push
 jobs:
   cd:
     runs-on: ${{ matrix.os }}
