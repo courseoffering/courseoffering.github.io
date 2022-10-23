@@ -29,16 +29,16 @@ export function buttonOptions(checkClass: any) {
 		disabled = true
 	}
 	let availability: string = checkClass.available
-	if (availability != 'Available') {
+	if (availability != 'available') {
 		icon = 'mdi-alert'
 		color = 'error'
 		tooltips = [
 			...tooltips,
-			availability == 'Unknown'
+			availability == 'Unknown'// todo
 				? 'Not Available for an Unknown reason!'
 				: availability,
 		]
-		if (checkClass.available == 'Full') icon = 'mdi-alert-plus'
+		if (checkClass.available == 'full') icon = 'mdi-alert-plus'
 		// class itself is added, but full
 		if (sameCourse && sameCourse.crn == checkClass.crn) {
 			color = 'success'
