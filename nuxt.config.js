@@ -18,7 +18,7 @@ export default {
 		title: 'KFU',
 		meta: [
 			{ charset: 'utf-8' },
-			{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
+			{ name: 'viewport', content: 'width=1024' },
 			{ hid: 'description', name: 'description', content: '' },
 			{ name: 'format-detection', content: 'telephone=no' },
 		],
