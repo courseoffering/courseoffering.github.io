@@ -1,4 +1,20 @@
-# test
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/5236c3a0-75c1-41e1-94b2-ada6f6cf9d62"
+        height="200">
+</p>
+
+
+<p align="center">
+        <img src="https://img.shields.io/github/license/courseoffering/courseoffering.github.io" />
+        <img src="https://img.shields.io/github/v/release/courseoffering/courseoffering.github.io" />
+        <img src="https://img.shields.io/github/issues-search/courseoffering/courseoffering.github.io?query=is%3Aopen&label=Open%20Issues" />
+        <img src="https://img.shields.io/github/languages/code-size/courseoffering/courseoffering.github.io" />
+        <img src="https://img.shields.io/github/deployments/courseoffering/courseoffering.github.io/github-pages" />
+
+</p>
+
+![image](https://github.com/user-attachments/assets/5ae4b2a4-1f7f-4343-8825-b81ad0d672f2)
+
 
 # Warning!
 This site has analytics, if you decide to fork, remove it from [layouts/default.vue](/home/user/code/kfu/KFU-reg.github.io/layouts/default.vue) and
